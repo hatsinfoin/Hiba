@@ -34,7 +34,7 @@ public class DonarListController {
 	    }
 
 	@GetMapping("/donerListByPincode/{pincode}")
-	public Optional<DonarList> getAllDonerListByPincode(@PathVariable String pincode) {
+	public List<DonarList> getAllDonerListByPincode(@PathVariable String pincode) {
 		return donarListServices.getByPinCode(pincode);
 	}
 	
