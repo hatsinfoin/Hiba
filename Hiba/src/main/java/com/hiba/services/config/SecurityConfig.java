@@ -24,6 +24,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    	
 		/*
 		 * http
 		 * .exceptionHandling().authenticationEntryPoint(userAuthenticationEntryPoint)
@@ -37,20 +38,18 @@ public class SecurityConfig {
 		 * .requestMatchers(HttpMethod.POST, "/v1/signIn", "/v1/signUp").permitAll()
 		 * .anyRequest().authenticated()) ;
 		 */  
-    	
-    	  http
-          .exceptionHandling().authenticationEntryPoint(userAuthenticationEntryPoint)
-          .and()
-          .addFilterBefore(new UsernamePasswordAuthFilter(userAuthenticationProvider), BasicAuthenticationFilter.class)
-          .addFilterBefore(new JwtAuthFilter(userAuthenticationProvider), UsernamePasswordAuthFilter.class)
-          .csrf().disable()
-          .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-          .and()
-          .authorizeHttpRequests((requests) -> requests
-                  .requestMatchers("/**").permitAll()
-                  )
-          ;
-
+		
+		  System.out.println("in SecurityFilterChain securityFilterChain"); http
+		  .exceptionHandling().authenticationEntryPoint(userAuthenticationEntryPoint)
+		  .and() .addFilterBefore(new
+		  UsernamePasswordAuthFilter(userAuthenticationProvider),
+		  BasicAuthenticationFilter.class) .addFilterBefore(new
+		  JwtAuthFilter(userAuthenticationProvider), UsernamePasswordAuthFilter.class)
+		  .csrf().disable()
+		  .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		  .and() .authorizeHttpRequests((requests) -> requests
+		  .requestMatchers("/**").permitAll() ) ;
+		 
     	  
     	  
         return http.build();

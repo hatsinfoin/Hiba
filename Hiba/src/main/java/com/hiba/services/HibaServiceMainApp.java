@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 //Main Class
 @SpringBootApplication
-public class EDairyServiceMainApp { 
+public class HibaServiceMainApp { 
 
     public static void main(String[] args) {
-        SpringApplication.run(EDairyServiceMainApp.class, args);
+        SpringApplication.run(HibaServiceMainApp.class, args);
     }
 }

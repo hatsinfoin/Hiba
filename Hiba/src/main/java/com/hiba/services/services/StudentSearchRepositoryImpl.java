@@ -38,7 +38,7 @@ public class StudentSearchRepositoryImpl implements StudentSearchRepository {
 			    new Document("text", 
 			    		// Search5657
 			    new Document("query",rollNo)
-			                .append("path",  Arrays.asList("rollNo", "name"))))));
+			                .append("path",  Arrays.asList("rollNo"))))));
 		System.out.println("after AggregateIterable ");
 	
 		

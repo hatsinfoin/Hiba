@@ -19,6 +19,30 @@ public class DonarList {
 	private String pinCodeId;
 	
 	private List<DonarUsers> donarUsers;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getPinCodeId() {
+		return pinCodeId;
+	}
+
+	public void setPinCodeId(String pinCodeId) {
+		this.pinCodeId = pinCodeId;
+	}
+
+	public List<DonarUsers> getDonarUsers() {
+		return donarUsers;
+	}
+
+	public void setDonarUsers(List<DonarUsers> donarUsers) {
+		this.donarUsers = donarUsers;
+	}
 	 
 	
 	
