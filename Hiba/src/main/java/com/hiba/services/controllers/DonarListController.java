@@ -66,6 +66,19 @@ public class DonarListController {
 		return ResponseEntity.ok(donarListServices.SaveDonarList(d));
 	}
 	
+	@PostMapping("/addInterestedCandidate/{pincode}/{donorUserID}/{itemid}/{interestedUserId}")
+	public ResponseEntity<DonarList> addNewItemUnderUser(@PathVariable String pincode,@PathVariable String donorUserID,@PathVariable String itemid,@PathVariable String interestedUserId) {
+		System.out.println("In Controler addNewItemUnderUser donorUserID "+donorUserID);
+		System.out.println("In Controler addNewItemUnderUser pincode "+pincode);
+		System.out.println("In Controler addNewItemUnderUser itemid "+itemid);
+		System.out.println("In Controler addNewItemUnderUser InterestedUserId "+interestedUserId);
+		
+		List<DonarList> donarList = donarListServices.addInterestedCandidate(pincode,donorUserID,itemid,interestedUserId);
+		DonarList d = donarList.get(0);
+		d.getDonarUsers().get(0).getItemDetails().get(0).setItemTitle("Java Updated Value ");
+		return ResponseEntity.ok(donarListServices.SaveDonarList(d));
+	}
+	
 	@PostMapping("/addNewItemUnderUser/{pincode}/{donorUserID}")
 	public ResponseEntity<DonarList> addNewItemUnderUser(@PathVariable String pincode,@PathVariable String donorUserID,@RequestBody ItemDetails itemDetails) {
 		System.out.println("In Controler addNewItemUnderUser donorUserID "+donorUserID);
@@ -78,5 +91,4 @@ public class DonarListController {
 		return ResponseEntity.ok(donarListServices.SaveDonarList(d));
 	}
 	
-
 }

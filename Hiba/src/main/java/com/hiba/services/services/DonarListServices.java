@@ -9,6 +9,8 @@ import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.convert.MongoConverter;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.hiba.services.model.DonarList;
 import com.hiba.services.model.DonarUsers;
@@ -32,6 +34,49 @@ public class DonarListServices {
 	@Autowired
 	MongoConverter converter;
 
+	
+	
+	public List<DonarList> addInterestedCandidate( String pincode,String donorUserID, String itemid,String interestedUserId) {
+
+		 List<DonarList> userdonationList = getByPinCode(pincode);
+
+		for (DonarList userdonationDetails : userdonationList) {
+			System.out.println("---- " + userdonationDetails.getPinCodeId());
+
+			if (userdonationDetails.getPinCodeId().equals(pincode)) {
+				List<DonarUsers> donarUsersList = userdonationDetails.getDonarUsers();
+
+				for (DonarUsers donarUser : donarUsersList) {
+					if (!donarUser.getDonarUserId().equals(donorUserID)) {
+						donarUsersList.remove(donarUser);
+						System.out.println("found donorId");
+					}else {
+						System.out.println("found User adding "+itemid);
+ 						for (ItemDetails itemDetails : donarUser.getItemDetails()) {
+ 							if(itemDetails.getItemid().equals(itemid)) {
+ 								int n = itemDetails.getInterestedCandidates().length;
+ 								String[] newArray = Arrays.copyOf(itemDetails.getInterestedCandidates(), n + 1);
+ 								newArray[n] = interestedUserId;
+ 								
+ 								itemDetails.setInterestedCandidates(newArray);
+ 							}
+						}
+					}
+				}
+				
+				
+
+			}
+
+		}
+		
+		System.out.println("Saving the added user item details");
+		SaveDonarList(userdonationList.get(0));
+		System.out.println("after Save");
+		System.out.println("userdonationList "+userdonationList);
+		return userdonationList;
+	}
+	
 	
 	public List<DonarList> addNewItemUnderUser(String donorUserID, String pinCode,ItemDetails itemDetails) {
 
